@@ -1,20 +1,63 @@
 {
+  "$schema": "./schema/book-platform.contract.v1.schema.json",
   "schema_version": "book-platform.contract.v1",
   "platform_id": "identity",
   "repository": "book-identity-platform",
   "status": "scaffolded",
   "api_version": "v1",
   "data_owner": "book-identity-platform",
-  "capabilities": ["platform-api", "health", "contract"],
+  "capabilities": [
+    "authentication",
+    "tenant",
+    "membership",
+    "rbac",
+    "api-key"
+  ],
   "depends_on": [],
   "current_implementation": {
     "repository": "solo-empire",
-    "source_path": "infra/api/server.ts"
+    "source_path": "infra/api/server.ts",
+    "source_paths": [
+      "infra/api/server.ts"
+    ],
+    "source_status": "current-implementation-in-solo-empire"
   },
   "migration": {
     "compatibility_adapter": "required",
     "shadow_parity": "pending",
     "cutover": "pending",
     "rollback": "required"
-  }
+  },
+  "migration_gates": [
+    "tenant isolation",
+    "credential rotation",
+    "session parity"
+  ],
+  "surface_doc": "docs/CONTRACT-SURFACE.md",
+  "interfaces": [
+    {
+      "id": "identity.http.bearer-auth",
+      "kind": "http",
+      "direction": "provides",
+      "name": "Authorization: Bearer <token> validation for /api/* (requireAuth)",
+      "status": "current-in-solo-empire",
+      "source": "infra/api/auth.ts"
+    },
+    {
+      "id": "identity.config.scoped-tokens",
+      "kind": "config",
+      "direction": "provides",
+      "name": "API_TOKENS_JSON scoped token registry (subject, token_hash, scopes, expires_at)",
+      "status": "current-in-solo-empire",
+      "source": "infra/api/auth.ts"
+    },
+    {
+      "id": "identity.config.legacy-token",
+      "kind": "config",
+      "direction": "provides",
+      "name": "API_TOKEN legacy full-scope token and ALLOW_UNAUTH_DEV local switch",
+      "status": "current-in-solo-empire",
+      "source": "infra/api/auth.ts"
+    }
+  ]
 }
