@@ -7,7 +7,7 @@ listed there is missing from this page.
 
 - Platform: `identity` (contract `book-platform.contract.v1`, API `v1`)
 - Status: `scaffolded`; source status: `current-implementation-in-solo-empire`
-- Current implementation: `solo-empire` at `infra/api/server.ts`
+- Current implementation: `solo-empire` at `infra/api/server.ts` and `infra/api/auth.ts`
 - Depends on: none
 
 Interfaces marked `current-in-solo-empire` are served by the `solo-empire`

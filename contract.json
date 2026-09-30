@@ -18,7 +18,8 @@
     "repository": "solo-empire",
     "source_path": "infra/api/server.ts",
     "source_paths": [
-      "infra/api/server.ts"
+      "infra/api/server.ts",
+      "infra/api/auth.ts"
     ],
     "source_status": "current-implementation-in-solo-empire"
   },

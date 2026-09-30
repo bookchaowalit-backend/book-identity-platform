@@ -5,8 +5,8 @@
 ## Scope
 
 This repository owns the `identity` capability: authentication, tenant, membership, RBAC, API keys.
-The current source implementation is recorded as `infra/api/server.ts` in the
-parent registry. This checkout is a local scaffold; it contains no production
+The current source implementation is recorded as `infra/api/server.ts` and
+`infra/api/auth.ts` in the parent registry. This checkout is a local scaffold; it contains no production
 provider integration, database writer, credential, or customer payload.
 
 ## Boundary
@@ -37,6 +37,14 @@ confirms that the README and [`docs/CONTRACT-SURFACE.md`](docs/CONTRACT-SURFACE.
 agree with the contract, and runs the unit tests in `tests/`. GitHub Actions
 runs the same command on every push and pull request
 (`.github/workflows/check.yml`).
+
+`scripts/check_schema_pin.py` fails when the vendored schema no longer
+matches the sha256 pinned in `schema/book-platform.contract.v1.schema.json.sha256`
+(the canonical copy lives in `bookchaowalit-backend-core/contracts/`; change it
+there first, then copy the schema and its pin here). Pass
+`--canonical ../bookchaowalit-backend-core` to also compare with a local
+checkout. `python3 scripts/check_registry_alignment.py --solo-empire ../solo-empire`
+compares this contract with the parent platform registry (local only; read-only).
 
 The check validates repository shape and contract metadata only. It does not
 claim deployment, provider connectivity, data migration, or production
